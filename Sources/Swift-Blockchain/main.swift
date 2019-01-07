@@ -4,21 +4,9 @@ import CryptoSwift
 import KituraNet
 import SwiftyRequest
 
-struct Block: Codable {
-    var index: Int64
-    var timestamp: Date
-    var transactions: [Transaction]
-    var proof: Int64
-    var previous_hash: String
-}
 
-struct Transaction: Codable {
-    var sender: String
-    var recipient: String
-    var amount: Int64
-}
 
-class Blockchain {
+class Blockchain: Chain {
     // MARK: - Properties
     var chain: [Block]
     var current_transactions: [Transaction]
@@ -35,15 +23,7 @@ class Blockchain {
     }
     
     // MARK: - Methods
-    
-    /**
-     # Creates a new block and adds it to the chain
-     
-     - Parameter proof: <int> The proof given by the Proof of Work algorithm
-     - Parameter previous_hash: (Optional) <str> Hash of previous Block
-     - returns: _dict_ New Block
-     
-     */
+ 
     @discardableResult
     func newBlock(previous_hash: String?, proof: Int64) -> Block {
         let block = Block(index: Int64(self.chain.count + 1),
@@ -60,6 +40,7 @@ class Blockchain {
         return block
     }
     
+    @discardableResult
     func newTransaction(sender: String, recipient: String, amount: Int64) -> Int64 {
         let transaction = Transaction(sender: sender, recipient: recipient, amount: amount)
         self.current_transactions.append(transaction)
@@ -71,13 +52,6 @@ class Blockchain {
         return self.chain[self.chain.count - 1]
     }
     
-    /**
-     Creates a SHA-256 hash of a Block
-     
-     - Parameter block: <dict> Block
-     - returns: String
-     
-     */
     func hash(block: Block) -> String {
         let encoder = JSONEncoder()
         // We must make sure that the Dictionary is Ordered, or we'll have inconsistent hashes
@@ -89,15 +63,6 @@ class Blockchain {
         return str.sha256()
     }
     
-    /**
-     Simple Proof of Work Algorithm:
-     
-     - Find a number p' such that hash(pp') contains leading 4 zeroes, where p is the previous p'
-     - p is the previous proof, and p' is the new proof
-     - Parameter: last_proof: Int64
-     - returns: Int64
-     """
-     */
     func proofOfWork(last_proof: Int64) -> Int64 {
         var proof: Int64 = 0
         while !self.validProof(last_proof: last_proof, proof: proof) {
@@ -107,13 +72,6 @@ class Blockchain {
         return proof
     }
     
-    /**
-     Validates the Proof: Does hash(last_proof, proof) contain 4 leading zeroes?
-     
-     - Parameter last_proof: <int> Previous Proof
-     - Parameter proof: <int> Current Proof
-     - returns: True if correct, False if not.
-     */
     func validProof(last_proof: Int64, proof: Int64) -> Bool {
         let guess = "\(last_proof)\(proof)"
         let guess_hash = guess.sha256()
@@ -125,11 +83,6 @@ class Blockchain {
         return ProcessInfo().globallyUniqueString.replacingOccurrences(of: "-", with: "")
     }
     
-    /**
-     Add a new node to the list of nodes
-     
-     - Parameter address: Address of node. Eg. 'http://192.168.0.5:5000'
-     */
     func registerNode(address: String) -> Bool {
         let options = ClientRequest.parse(address)
         for option in options {
@@ -142,12 +95,6 @@ class Blockchain {
         return false
     }
     
-    /**
-     Determine if a given blockchain is valid
-     
-     - Parameter chain: A blockchain
-     - returns: True if valid, False if not
-     */
     func validChain(_ chain: [Block]) -> Bool {
         var last_block = chain[0]
         var current_index = 1
@@ -173,12 +120,6 @@ class Blockchain {
         return true
     }
     
-    /**
-     This is our Consensus Algorithm, it resolves conflicts
-     by replacing our chain with the longest one in the network.
-     
-     - returns: True if our chain was replaced, False if not
-     */
     func resolveConflicts() -> Bool {
         let neighbours = self.nodes
         var new_chain: [Block]?
@@ -250,7 +191,7 @@ router.get("/mine") {
     
     // We must receive a reward for finding the proof.
     // The sender is "0" to signify that this node has mined a new coin.
-    blockchain.newTransaction(sender: "0", recipient: blockchain.node_identifier, amount: 1)
+    _ = blockchain.newTransaction(sender: "0", recipient: blockchain.node_identifier, amount: 1)
     
     // Forge the new Block by adding it to the chain
     let previous_hash = blockchain.hash(block: last_block)
