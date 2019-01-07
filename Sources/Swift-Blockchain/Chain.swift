@@ -51,6 +51,11 @@ protocol Chain: class {
     func newTransaction(sender: String, recipient: String, amount: Int64) -> Int64
     
     /**
+    Returns the last Block in the chain
+     */
+    var last_block: Block {get}
+    
+    /**
      Creates a SHA-256 hash of a Block
      
      - Parameter block: <dict> Block
