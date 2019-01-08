@@ -1,4 +1,5 @@
-## Blockchain by Swift ##
+## [Blockchain by Swift](https://medium.com/@mhacnagbani/blockchain-by-swift-cddd4e1d02eb) ##
+###### (_Follow to learn the step by step implementation _)
 ### A simple implementation of blockchain in Swift ###
 
 ### Requirements
