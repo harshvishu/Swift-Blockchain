@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		3A1032F121E3DDD300F90743 /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1032F021E3DDD300F90743 /* Chain.swift */; };
+		3ADB606A21E51E84004BAA38 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB606921E51E84004BAA38 /* Alerts.swift */; };
 		OBJ_276 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_234 /* http_parser.c */; };
 		OBJ_277 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_235 /* utils.c */; };
 		OBJ_279 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = OBJ_237 /* utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -580,6 +581,7 @@
 
 /* Begin PBXFileReference section */
 		3A1032F021E3DDD300F90743 /* Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
+		3ADB606921E51E84004BAA38 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		"CircuitBreaker::CircuitBreaker::Product" /* CircuitBreaker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CircuitBreaker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"CryptoSwift::CryptoSwift::Product" /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Kitura-TemplateEngine::KituraTemplateEngine::Product" /* KituraTemplateEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KituraTemplateEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1455,7 +1457,7 @@
 			path = ".build/checkouts/CryptoSwift.git-8064317464702432894/Sources/CryptoSwift";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -1464,7 +1466,6 @@
 				OBJ_14 /* Dependencies */,
 				OBJ_256 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_50 /* BlockMode */ = {
@@ -1513,6 +1514,7 @@
 			children = (
 				OBJ_9 /* main.swift */,
 				3A1032F021E3DDD300F90743 /* Chain.swift */,
+				3ADB606921E51E84004BAA38 /* Alerts.swift */,
 			);
 			name = "Swift-Blockchain";
 			path = "Sources/Swift-Blockchain";
@@ -1996,7 +1998,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_256 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2360,6 +2362,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_605 /* main.swift in Sources */,
+				3ADB606A21E51E84004BAA38 /* Alerts.swift in Sources */,
 				3A1032F121E3DDD300F90743 /* Chain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

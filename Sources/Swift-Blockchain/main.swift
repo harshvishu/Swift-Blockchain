@@ -166,6 +166,7 @@ class Blockchain: Chain {
     
 }
 
+// Instance of blockchain
 let blockchain = Blockchain()
 
 
@@ -300,6 +301,8 @@ router.get("/nodes/resolve") {
 
 // Add an HTTP server and connect it to the router
 Kitura.addHTTPServer(onPort: 5000, with: router)
+
+Alerts.serverStarted(onPort: 5000).notify()
 
 // Start the Kitura runloop (this call never returns)
 Kitura.run()
